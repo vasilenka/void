@@ -1,12 +1,12 @@
-import styles from "./Box.module.scss";
-import React from "react";
-import classnames from "classnames";
-import { oneOf, node, string } from "prop-types";
-import { motion } from "framer-motion";
+import styles from './Box.module.scss'
+import React from 'react'
+import classnames from 'classnames'
+import { oneOf, node, string } from 'prop-types'
+import { motion } from 'framer-motion'
 
-import withDirectionProps from "../../components/__private/withDirectionProps";
-import withJustifyProps from "../../components/__private/withJustifyProps";
-import withAlignProps from "../../components/__private/withAlignProps";
+import withDirectionProps from '../../components/__private/withDirectionProps'
+import withJustifyProps from '../../components/__private/withJustifyProps'
+import withAlignProps from '../../components/__private/withAlignProps'
 
 export const BoxNoModifier = React.forwardRef(
   (
@@ -22,7 +22,7 @@ export const BoxNoModifier = React.forwardRef(
     },
     forwardedRef
   ) => {
-    let Component = motion[as];
+    let Component = motion[as]
 
     return (
       <Component
@@ -35,24 +35,23 @@ export const BoxNoModifier = React.forwardRef(
           [styles[justify]]: justify,
           [styles[align]]: align,
 
-          [className]: className
+          [className]: className,
         })}
-        {...restProps}
-      >
+        {...restProps}>
         {children}
       </Component>
-    );
+    )
   }
-);
+)
 
-BoxNoModifier.displayName = "Box";
+BoxNoModifier.displayName = 'Box'
 
 BoxNoModifier.defaultProps = {
-  as: "div",
-  direction: "row",
-  justify: "justifyStart",
-  align: "alignStart"
-};
+  as: 'div',
+  direction: 'row',
+  justify: 'justifyStart',
+  align: 'alignStart',
+}
 
 BoxNoModifier.propTypes = {
   children: node.isRequired,
@@ -60,30 +59,30 @@ BoxNoModifier.propTypes = {
   /**
    * Use directly as props
    */
-  direction: oneOf(["row", "rowReverse", "column", "columnReverse"]),
+  direction: oneOf(['row', 'rowReverse', 'column', 'columnReverse']),
   /**
    * Use directly as props
    */
   justify: oneOf([
-    "justifyStart",
-    "justifyEnd",
-    "justifyCenter",
-    "justifyAround",
-    "justifyBetween",
-    "justifyEvenly"
+    'justifyStart',
+    'justifyEnd',
+    'justifyCenter',
+    'justifyAround',
+    'justifyBetween',
+    'justifyEvenly',
   ]),
   /**
    * Use directly as props
    */
   align: oneOf([
-    "alignStart",
-    "alignEnd",
-    "alignCenter",
-    "alignStretch",
-    "alignBaseline"
-  ])
-};
+    'alignStart',
+    'alignEnd',
+    'alignCenter',
+    'alignStretch',
+    'alignBaseline',
+  ]),
+}
 
-const Box = withDirectionProps(withJustifyProps(withAlignProps(BoxNoModifier)));
+const Box = withDirectionProps(withJustifyProps(withAlignProps(BoxNoModifier)))
 
-export default Box;
+export default Box
