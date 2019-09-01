@@ -1,0 +1,37 @@
+@import 'src/tokens';
+
+.smallPhone {
+  @include screen(smallPhone) {
+    @include grid-col-alt(var(--column-amount-smallPhone));
+  }
+}
+
+.phone {
+  @include screen(phone) {
+    @include grid-col-alt(var(--column-amount-phone));
+  }
+}
+
+.tablet {
+  @include screen(tablet) {
+    @include grid-col-alt(var(--column-amount-tablet));
+  }
+}
+
+.tabletLandscape {
+  @include screen(tabletLandscape) {
+    @include grid-col-alt(var(--column-amount-tabletLandscape));
+  }
+}
+
+.desktop {
+  @include screen(desktop) {
+    @include grid-col-alt(var(--column-amount-desktop));
+  }
+}
+
+.desktopWide {
+  @include screen(desktopWide) {
+    @include grid-col-alt(var(--column-amount-desktopWide));
+  }
+}

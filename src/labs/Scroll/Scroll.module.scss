@@ -1,0 +1,122 @@
+@import 'src/tokens';
+
+.root {
+  padding-top: $space-ll;
+  padding-bottom: $space-ll;
+  overflow: hidden;
+  // background-color: tomato;
+}
+
+.container {
+  // overflow-x: auto;
+  // padding-right: -55px;
+}
+
+.text {
+  background-color: teal;
+  width: 100%;
+}
+
+.area {
+  @include screen(smallPhone) {
+    @include grid-row-alt($wrap: nowrap, $grid-gutter: $gutter);
+  }
+  @include screen(phone) {
+    @include grid-row-alt($wrap: nowrap, $grid-gutter: $gutter);
+  }
+  @include screen(tablet) {
+    @include grid-row-alt($wrap: nowrap, $grid-gutter: $gutter);
+  }
+  @include screen(tabletLandscape) {
+    @include grid-row-alt($wrap: nowrap, $grid-gutter: $gutter);
+  }
+  @include screen(desktop) {
+    @include grid-row-alt($wrap: nowrap, $grid-gutter: $gutter);
+  }
+  @include screen(desktopWide) {
+    @include grid-row-alt($wrap: nowrap, $grid-gutter: $gutter);
+  }
+
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: 0;
+  padding-top: $space-ll;
+  padding-bottom: $space-ll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &::after,
+  &::before {
+    content: ' ';
+    display: block;
+    @include screen(smallPhone) {
+      width: #{$container-gutter-mobile-small - $gutter / 2};
+      max-width: #{$container-gutter-mobile-small - $gutter / 2};
+      min-width: #{$container-gutter-mobile-small - $gutter / 2};
+    }
+    @include screen(phone) {
+      width: #{$container-gutter-mobile - $gutter / 2};
+      max-width: #{$container-gutter-mobile - $gutter / 2};
+      min-width: #{$container-gutter-mobile - $gutter / 2};
+    }
+    @include screen(tablet) {
+      width: #{$container-gutter-tablet - $gutter / 2};
+      max-width: #{$container-gutter-tablet - $gutter / 2};
+      min-width: #{$container-gutter-tablet - $gutter / 2};
+    }
+    @include screen(tabletLandscape) {
+      width: #{$container-gutter-tablet - $gutter / 2};
+      max-width: #{$container-gutter-tablet - $gutter / 2};
+      min-width: #{$container-gutter-tablet - $gutter / 2};
+    }
+    @include screen(desktop) {
+      width: #{$container-gutter-desktop - $gutter / 2};
+      max-width: #{$container-gutter-desktop - $gutter / 2};
+      min-width: #{$container-gutter-desktop - $gutter / 2};
+    }
+    @include screen(desktopWide) {
+      width: #{$container-gutter-desktop-wide - $gutter / 2};
+      max-width: #{$container-gutter-desktop-wide - $gutter / 2};
+      min-width: #{$container-gutter-desktop-wide - $gutter / 2};
+    }
+  }
+}
+
+.item {
+  @include screen(smallPhone) {
+    @include grid-col(8, $grid-gutter: $gutter, $row-gutter: $container-gutter-mobile-small);
+  }
+  @include screen(phone) {
+    @include grid-col(4, $grid-gutter: $gutter, $row-gutter: $container-gutter-mobile);
+  }
+  @include screen(tablet) {
+    @include grid-col(3, $grid-gutter: $gutter, $row-gutter: $container-gutter-tablet);
+  }
+  @include screen(tabletLandscape) {
+    @include grid-col(3, $grid-gutter: $gutter, $row-gutter: $container-gutter-tablet);
+  }
+  @include screen(desktop) {
+    @include grid-col(2, $grid-gutter: $gutter, $row-gutter: $container-gutter-desktop);
+  }
+  @include screen(desktopWide) {
+    @include grid-col(2, $grid-gutter: $gutter, $row-gutter: $container-gutter-desktop-wide);
+  }
+}
+
+.card {
+  border-radius: 8px;
+  overflow: hidden;
+  height: 320px;
+  background-color: $bg-rose-100;
+  box-shadow: 0px 20px 24px -12px rgba($color: $bg-rose-100, $alpha: 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 144px;
+  color: $bg-rose-300;
+  line-height: 40px;
+  font-family: $font-primary;
+  cursor: pointer;
+}

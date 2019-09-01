@@ -1,0 +1,7 @@
+@import 'src/tokens';
+@import 'src/styles/invoker-base/index';
+@import 'src/styles/invoker-layout/grid.module.scss';
+
+.fullScreen {
+  height: 100%;
+}

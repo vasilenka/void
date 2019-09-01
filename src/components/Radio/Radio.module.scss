@@ -1,0 +1,107 @@
+@import 'src/tokens';
+
+.mark {
+  cursor: pointer;
+  position: relative;
+  appearance: none;
+  -webkit-appearance: none;
+  // background: $light-alpha-100;
+  border: 1px solid $dark-alpha-30;
+  border-radius: 999px;
+  outline: none;
+  transition: all 0.36s;
+  height: 22px;
+
+  &:focus,
+  &:active {
+    border-color: $brand-primary-200;
+    transition: all 0.28s;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    border-radius: 9999px;
+    background-color: transparent;
+    transition: all 0.36s;
+  }
+
+  &:hover::after {
+    background-color: $dark-alpha-30;
+    transition: all 0.28s;
+  }
+  &:checked::after {
+    background-color: $brand-primary-200;
+    transition: all 0.28s;
+  }
+
+  &.markDisabled {
+    border-color: $dark-alpha-20;
+    &:hover::after {
+      background-color: $dark-alpha-20;
+      transition: all 0.28s;
+    }
+  }
+}
+
+.small {
+  composes: mark;
+  margin-top: 3px;
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  min-height: 14px;
+
+  &::after {
+    width: 6px;
+    height: 6px;
+    top: calc(50% - 3px);
+    left: calc(50% - 3px);
+  }
+}
+
+.normal {
+  composes: mark;
+  margin-top: 1px;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
+
+  &::after {
+    width: 6px;
+    height: 6px;
+    top: calc(50% - 3px);
+    left: calc(50% - 3px);
+  }
+}
+
+.large {
+  composes: mark;
+  width: 22px;
+  min-width: 22px;
+  height: 22px;
+  min-height: 22px;
+  &::after {
+    width: 8px;
+    height: 8px;
+    top: calc(50% - 4px);
+    left: calc(50% - 4px);
+  }
+}
+
+.disabled {
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: rgba(235, 235, 235, 1);
+    transition: all 0.28s;
+  }
+}
+
+.label {
+  color: unset;
+}
+
+.labelDisabled {
+}

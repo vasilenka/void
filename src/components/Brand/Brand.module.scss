@@ -1,0 +1,18 @@
+@import 'src/tokens';
+
+.root {
+  min-width: 72px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.brandContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand {
+  height: 18px;
+}

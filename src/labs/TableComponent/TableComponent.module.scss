@@ -1,0 +1,81 @@
+@import 'src/tokens';
+
+.table {
+  width: 100%;
+  font-family: $font-primary;
+  margin-bottom: 64px;
+}
+
+.table,
+.table td,
+.table th {
+  border-collapse: collapse;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: 1px solid #eeeeee !important;
+  padding: 0.25rem;
+  padding-right: 24px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  border-top: none !important;
+  color: $dark-alpha-60;
+  padding-top: 20px;
+  padding-bottom: 12px;
+  font-size: 14px;
+}
+
+.table {
+  margin-top: 16px;
+  font-size: 15px;
+}
+
+.required {
+  width: 48px;
+  max-width: 48px;
+}
+
+.prop {
+  font-weight: $bold;
+  color: $dark-alpha-70;
+  padding-right: 32px;
+  font-size: 16px;
+  min-width: 192px;
+  font-family: $font-monospace;
+  line-height: 24px;
+}
+
+.table th {
+  font-weight: $medium;
+}
+
+.type {
+}
+
+.name {
+  font-family: $font-monospace;
+  font-size: 16px !important;
+  line-height: 24px !important;
+  display: block;
+  color: $dark-alpha-80 !important;
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
+
+.description {
+  display: block;
+  font-family: $font-primary;
+  color: $dark-alpha-60 !important;
+  font-size: 16px !important;
+  line-height: 16px !important;
+  padding-bottom: 4px;
+  &:last-child {
+    margin-bottom: 8px;
+  }
+}

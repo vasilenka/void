@@ -1,0 +1,126 @@
+@import 'src/tokens';
+
+.root {
+  position: fixed;
+  z-index: $layer-top;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  will-change: transform;
+  @include screen(smallPhone) {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    display: block;
+  }
+  @include screen(phone) {
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 12px;
+    display: block;
+  }
+  @include screen(tablet) {
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 12px;
+    display: block;
+  }
+  @include screen(tabletLandscape) {
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 12px;
+    display: none;
+  }
+  @include screen(desktop) {
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 12px;
+    display: none;
+  }
+  @include screen(desktopWide) {
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 12px;
+    display: none;
+  }
+}
+
+.nav {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba($color: rebeccapurple, $alpha: 0.06);
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 0px 12px 20px -8px $dark-alpha-30;
+
+  @include screen(smallPhone) {
+    border-radius: 12px 12px 0px 0px;
+  }
+  @include screen(phone) {
+    border-radius: 6px;
+  }
+  @include screen(tablet) {
+    border-radius: 6px;
+  }
+  @include screen(tabletLandscape) {
+    border-radius: 6px;
+  }
+  @include screen(desktop) {
+    border-radius: 6px;
+  }
+  @include screen(desktopWide) {
+    border-radius: 6px;
+  }
+}
+
+.item {
+  padding: 8px 4px 4px;
+  width: 64px;
+  height: 68px;
+}
+
+.icon {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 36px;
+  color: rebeccapurple;
+  @include screen(smallPhone) {
+    height: 24px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+  @include screen(phone) {
+    height: 24px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+  @include screen(tablet) {
+    height: 32px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  @include screen(tabletLandscape) {
+    height: 32px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  @include screen(desktop) {
+    height: 32px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  @include screen(desktopWide) {
+    height: 32px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+}
+
+.navItem {
+  width: 100%;
+  text-align: center;
+  color: rebeccapurple;
+  font-size: 12px;
+  line-height: 12px;
+}

@@ -1,0 +1,32 @@
+@import 'src/tokens';
+
+.root {
+  @include grid-row();
+}
+
+// .itemWrapper {
+//   @include screen(smallPhone) {
+//     @include grid-col(12);
+//   }
+//   @include screen(phone) {
+//     @include grid-col(12);
+//   }
+//   @include screen(tablet) {
+//     @include grid-col(6);
+//   }
+//   @include screen(tabletLandscape) {
+//     @include grid-col(6);
+//   }
+//   @include screen(desktop) {
+//     @include grid-col(4);
+//   }
+//   @include screen(desktopWide) {
+//     @include grid-col(4);
+//   }
+// }
+
+.item {
+  padding-top: $space-sm;
+  padding-bottom: $space-sm;
+  border-bottom: 1px solid $dark-alpha-20;
+}

@@ -1,0 +1,80 @@
+@import 'src/tokens';
+
+.root {
+  padding-top: $space-ll;
+  padding-bottom: $space-ll;
+  overflow: hidden;
+  // background-color: tomato;
+}
+
+.container {
+  width: 100%;
+}
+
+.heading {
+  width: 100%;
+  background-color: teal;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: $container-gutter-desktop 1fr $container-gutter-desktop;
+
+  overflow-x: scroll;
+  scroll-snap-type-x: proximity;
+  align-content: start;
+
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & > * {
+    grid-column: 2 / -2;
+    grid-column: 1 / -1;
+  }
+  & > .full {
+    grid-column: 1 / -1;
+  }
+}
+
+.area {
+  display: grid;
+  grid-gap: 12px;
+  grid-template-columns:
+    calc(#{$container-gutter-desktop} - 12px)
+    repeat(auto-fit, 216px);
+  grid-auto-flow: column;
+  grid-auto-columns: 216px;
+  grid-template-rows: minmax(150px, 1fr);
+
+  padding-top: $space-ll;
+  padding-bottom: $space-ll;
+  overflow-x: scroll;
+
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    width: calc(#{$container-gutter-desktop} - 12px);
+  }
+}
+
+.item {
+  height: 296px;
+  background-color: rebeccapurple;
+  box-shadow: 0px 20px 24px -16px rgba($color: rebeccapurple, $alpha: 0.92);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 144px;
+  color: white;
+  line-height: 40px;
+  font-family: $font-primary;
+}
+
+.card {
+}

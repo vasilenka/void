@@ -1,0 +1,101 @@
+@import 'src/tokens';
+
+.input {
+  cursor: pointer;
+  position: relative;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid;
+  border-color: $dark-alpha-40;
+  border-radius: 3px;
+  transition: all 0.36s;
+
+  &:checked {
+    border-color: $brand-primary-200;
+    transition: all 0.28s;
+
+    &::after {
+      position: absolute;
+      content: ' ';
+      border: solid $light-alpha-100;
+      transform: rotate(45deg);
+      border-width: 0 2px 2px 0;
+    }
+
+    &::before {
+      content: ' ';
+      position: absolute;
+      background-color: $brand-primary-200;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transition: all 0.28s;
+    }
+  }
+
+  &:hover {
+    background-color: $brand-primary-20;
+    transition: all 0.28s;
+  }
+
+  &.disabledMark {
+    border-color: $dark-alpha-30;
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+.small {
+  composes: input;
+  min-width: 14px;
+  min-height: 14px;
+  width: 14px;
+  height: 14px;
+  &::after {
+    left: 3px;
+    top: 0px;
+    width: 6px;
+    height: 11px;
+    transition: all 0.28s;
+    border-width: 0 1px 1px 0;
+  }
+}
+
+.normal {
+  composes: input;
+  height: 18px;
+  width: 18px;
+  min-height: 18px;
+  min-width: 18px;
+  &::after {
+    left: 5px;
+    top: 1px;
+    width: 6px;
+    height: 12px;
+    transition: all 0.28s;
+  }
+}
+
+.large {
+  composes: input;
+  height: 22px;
+  width: 22px;
+  min-height: 22px;
+  min-width: 22px;
+  &::after {
+    left: 7px;
+    top: 2px;
+    width: 6px;
+    height: 12px;
+    transition: all 0.28s;
+  }
+}
+
+.disabled {
+}
+
+.disabledLabel {
+  opacity: 0.44;
+}
