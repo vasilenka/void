@@ -55,7 +55,10 @@ const TimerSection = ({ children, className, ...restProps }) => {
   }, [duration, hours, minutes])
 
   return (
-    <Section className={cx(styles.root)} {...restProps}>
+    <Section
+      className={cx(styles.root)}
+      style={{ paddingBottom: 0 }}
+      {...restProps}>
       <Container post>
         <Box justifyBetween alignEnd>
           <main>

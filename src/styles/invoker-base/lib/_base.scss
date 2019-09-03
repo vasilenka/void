@@ -26,7 +26,6 @@ $base-font-size: 16px;
 
   // Enable for debugging purpose
   // outline: 1px solid red;
-
 }
 
 /* Document */
@@ -42,7 +41,7 @@ body {
   position: relative;
   font-family: $font-primary;
   color: $dark-alpha-70;
-  background-color: $light-hex-100;
+  background-color: $bg-sea-100;
 }
 
 // Render the `main` element consistently in IE.
@@ -124,7 +123,7 @@ strong {
 
 // Horizontal lines
 hr {
-   // Add the correct box sizing in Firefox.
+  // Add the correct box sizing in Firefox.
   box-sizing: content-box;
   height: 0;
 
@@ -144,10 +143,14 @@ table {
 }
 
 details {
-  summary { cursor: pointer; }
+  summary {
+    cursor: pointer;
+  }
   &:not([open]) {
     // Set details content hidden by default for browsers that don't do this
-    > *:not(summary) { display: none !important; }
+    > *:not(summary) {
+      display: none !important;
+    }
   }
 }
 
@@ -163,7 +166,7 @@ select:-moz-focusring {
 /**
  * Fix placeholder font properties inheritance.
  */
- ::-webkit-input-placeholder {
+::-webkit-input-placeholder {
   font: inherit;
 }
 :-ms-input-placeholder {

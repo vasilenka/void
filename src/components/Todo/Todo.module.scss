@@ -5,3 +5,43 @@
     margin-bottom: $space-s;
   }
 }
+
+.iconWrapper {
+  cursor: pointer;
+  padding: $space-sm;
+  height: fit-content;
+  border-radius: 3px;
+  background-color: $dark-alpha-10;
+  transition: all 0.36s;
+  color: $dark-alpha-60;
+}
+
+.edit {
+  &:hover {
+    background-color: $brand-sage-10;
+    color: $brand-sage-100;
+    transition: all 0.28s;
+  }
+}
+
+.done {
+  &:hover {
+    background-color: $brand-sea-10;
+    color: $brand-sea-200;
+    transition: all 0.28s;
+  }
+}
+
+.delete {
+  &:hover {
+    background-color: $brand-secondary-10;
+    color: $brand-secondary-100;
+    transition: all 0.28s;
+  }
+}
+
+.icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+}

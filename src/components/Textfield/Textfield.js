@@ -1,10 +1,10 @@
-import styles from './Textfield.module.scss';
-import React, { useState } from 'react';
-import cx from 'classnames';
+import styles from './Textfield.module.scss'
+import React, { useState } from 'react'
+import cx from 'classnames'
 
-import FieldHint from '../FieldHint/FieldHint';
-import FieldInputAlt from '../FieldInput/FieldInput';
-import FieldLabel from '../FieldLabel/FieldLabel';
+import FieldHint from '../FieldHint/FieldHint'
+import FieldInput from '../FieldInput/FieldInput'
+import FieldLabel from '../FieldLabel/FieldLabel'
 
 const Textfield = ({
   id,
@@ -37,13 +37,13 @@ const Textfield = ({
 
   placeholder,
   disabled,
-  required,
+  isRequired,
 
   ...restProps
 }) => {
-  const [internalValue, setInternalValue] = useState('');
-  const [internalTone, setInternalTone] = useState('');
-  const [internalMessage, setInternalMessage] = useState('');
+  const [internalValue, setInternalValue] = useState('')
+  const [internalTone, setInternalTone] = useState('')
+  const [internalMessage, setInternalMessage] = useState('')
 
   return (
     <div
@@ -52,8 +52,7 @@ const Textfield = ({
         [styles.inline]: inline,
         [className]: className,
       })}
-      {...restProps}
-    >
+      {...restProps}>
       {label && (
         <FieldLabel
           className={labelClassName}
@@ -65,7 +64,7 @@ const Textfield = ({
           tertiaryLabel={tertiaryLabel}
         />
       )}
-      <FieldInputAlt
+      <FieldInput
         id={id}
         name={name}
         type={type}
@@ -76,18 +75,16 @@ const Textfield = ({
         tone={tone ? tone : internalTone}
         setTone={setTone ? setTone : setInternalTone}
         value={value ? value : internalValue}
-        setValue={
-          value && setValue ? setValue : e => setInternalValue(e.target.value)
-        }
+        setValue={setValue ? setValue : e => setInternalValue(e.target.value)}
         setMessage={setMessage ? setMessage : setInternalMessage}
-        required
+        isRequired={isRequired}
       />
       {tone && message && <FieldHint tone={tone}>{message}</FieldHint>}
       {!tone && !message && internalTone && internalMessage && (
         <FieldHint tone={internalTone}>{internalMessage}</FieldHint>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Textfield;
+export default Textfield
