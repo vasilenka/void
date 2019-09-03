@@ -1,0 +1,26 @@
+@import 'src/tokens';
+
+.root {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.small {
+  padding: $space-sm;
+}
+
+.medium {
+  padding: $space-ml;
+}
+
+.large {
+  padding: $space-ll;
+}
+
+.light {
+  background-color: $light-alpha-100;
+}
+
+.container {
+  box-shadow: 0px 2px 4px $dark-alpha-20;
+}

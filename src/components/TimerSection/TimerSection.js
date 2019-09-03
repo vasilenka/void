@@ -56,7 +56,7 @@ const TimerSection = ({ children, className, ...restProps }) => {
 
   return (
     <Section className={cx(styles.root)} {...restProps}>
-      <Container narrow>
+      <Container post>
         <Box justifyBetween alignEnd>
           <main>
             <Text heading5 as="h2">

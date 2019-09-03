@@ -3,7 +3,7 @@ import * as serviceWorker from './serviceWorker'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import DefaultLayout from './layouts/Default/Default'
+import AppProvider from './layouts/AppProvider/AppProvider'
 
 import Main from './pages/main'
 import About from './pages/about'
@@ -13,13 +13,13 @@ const App = () => (
   <Router>
     <Route
       render={() => (
-        <DefaultLayout>
+        <AppProvider>
           <Switch>
             <Route exact path="/" component={Main} />
             <Route exact path="/about" component={About} />
             <Route component={NotFound} />
           </Switch>
-        </DefaultLayout>
+        </AppProvider>
       )}
     />
   </Router>
