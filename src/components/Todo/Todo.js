@@ -75,7 +75,7 @@ const Todo = ({ todo, project, className, ...restProps }) => {
 
   return (
     <Card
-      inset="small"
+      inset="medium"
       className={cx(styles.root, className)}
       alignCenter
       justifyBetween
