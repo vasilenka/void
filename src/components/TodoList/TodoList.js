@@ -13,10 +13,7 @@ const TodoList = ({ children, className, ...restProps }) => {
     <Section className={cx(styles.root)} {...restProps}>
       <Container post>
         <NewTodo style={{ marginBottom: 48 }} />
-        {state &&
-          state.todos.map(todo => (
-            <Todo id={todo.id} key={todo.id} title={todo.text} />
-          ))}
+        {state && state.todos.map(todo => <Todo key={todo.id} todo={todo} />)}
       </Container>
     </Section>
   )

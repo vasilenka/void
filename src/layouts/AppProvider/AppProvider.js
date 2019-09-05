@@ -1,5 +1,5 @@
 import styles from './AppProvider.module.scss'
-import React, { useReducer } from 'react'
+import React, { useReducer, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { initialTodos, todoReducer } from './reducers'
@@ -14,8 +14,12 @@ export const AppContext = React.createContext({
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialTodos)
+  const [active, setActive] = useState('')
+  let [running, setRunning] = useState(false)
+
   return (
-    <AppContext.Provider value={{ state, dispatch }}>
+    <AppContext.Provider
+      value={{ state, dispatch, active, setActive, running, setRunning }}>
       <main className={styles.root}>{children}</main>
     </AppContext.Provider>
   )

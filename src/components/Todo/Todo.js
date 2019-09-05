@@ -5,13 +5,17 @@ import cx from 'classnames'
 import { AppContext } from '../../layouts/AppProvider/AppProvider'
 
 import { ReactComponent as DeleteIcon } from './../../assets/svg/delete.inline.svg'
-import { ReactComponent as EditIcon } from './../../assets/svg/edit.inline.svg'
 import { ReactComponent as CheckIcon } from './../../assets/svg/checklist.inline.svg'
 
 import Card from '../Card/Card'
 import Text from '../Text/Text'
 import FieldInput from '../FieldInput/FieldInput'
 import Box from '../../layouts/Box/Box'
+import Button from '../Button/Button'
+
+const Iteration = ({ iterationsCounter }) => {
+  return <Text className={styles.iterationsCount}>{iterationsCounter}</Text>
+}
 
 const EditMode = ({ id, setEdit, dispatch, text, setValue, ...props }) => {
   let [editedText, setEditedText] = useState(text)
@@ -57,10 +61,17 @@ const EditMode = ({ id, setEdit, dispatch, text, setValue, ...props }) => {
   )
 }
 
-const Todo = ({ id, children, title, project, className, ...restProps }) => {
-  const { dispatch } = useContext(AppContext)
+const Todo = ({ todo, project, className, ...restProps }) => {
+  const { dispatch, setActive, running, setRunning } = useContext(AppContext)
   let [hover, setHover] = useState(false)
   let [edit, setEdit] = useState(false)
+
+  const runTodo = () => {
+    if (!running) {
+      setActive(todo)
+      setRunning(true)
+    }
+  }
 
   return (
     <Card
@@ -71,31 +82,39 @@ const Todo = ({ id, children, title, project, className, ...restProps }) => {
       onMouseOver={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       {...restProps}>
-      <Box as="header" justifyBetween style={{ flex: 1 }}>
+      <Box as="header" alignCenter style={{ flex: 1 }}>
         {edit ? (
           <EditMode
             dispatch={dispatch}
-            id={id}
-            text={title}
+            id={todo.id}
+            text={todo.text}
             setEdit={setEdit}
           />
         ) : (
-          <Text heading4 as="h2">
-            {title}
-          </Text>
+          <>
+            {todo.iterationsCounter > 0 && (
+              <Iteration iterationsCounter={todo.iterationsCounter} />
+            )}
+            <Text heading4 as="h2" onClick={() => setEdit(true)}>
+              {todo.text}
+            </Text>
+          </>
         )}
       </Box>
       {!edit && (
-        <Box as="footer" justifyEnd className={styles.footer}>
-          <div
-            className={cx(styles.iconWrapper, styles.edit)}
-            onClick={() => setEdit(true)}
-            style={{ opacity: hover ? 1 : 0, marginRight: 8 }}>
-            <EditIcon className={styles.icon} />
-          </div>
+        <Box as="footer" justifyEnd alignCenter className={styles.footer}>
+          {!running && hover && (
+            <Button
+              text
+              disabled={running}
+              style={{ marginRight: 12 }}
+              onClick={runTodo}>
+              Let's Burning!
+            </Button>
+          )}
           <div
             className={cx(styles.iconWrapper, styles.delete)}
-            onClick={() => dispatch({ type: 'delete', id })}
+            onClick={() => dispatch({ type: 'delete', id: todo.id })}
             style={{ opacity: hover ? 1 : 0 }}>
             <DeleteIcon className={styles.icon} />
           </div>

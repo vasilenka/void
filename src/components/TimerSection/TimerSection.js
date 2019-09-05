@@ -1,5 +1,5 @@
 import styles from './TimerSection.module.scss'
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useContext } from 'react'
 import cx from 'classnames'
 import dayjs from 'dayjs'
 
@@ -8,31 +8,36 @@ import Section from '../../layouts/Section/Section'
 import Container from '../../layouts/Container/Container'
 import Button from '../Button/Button'
 import Box from '../../layouts/Box/Box'
+import { AppContext } from '../../layouts/AppProvider/AppProvider'
 
 const TimerSection = ({ children, className, ...restProps }) => {
+  let { dispatch, running, setRunning, active } = useContext(AppContext)
+
   let [timer, setTimer] = useState()
   let [duration, setDuration] = useState(0)
   let [start, setStart] = useState()
-
-  let [running, setRunning] = useState(false)
 
   let [hours, setHours] = useState(0)
   let [minutes, setMinutes] = useState(0)
   let [seconds, setSeconds] = useState(0)
 
   const stopTimer = () => {
-    clearInterval(timer)
-    setRunning(false)
+    if (running && active) {
+      dispatch({ type: 'stop', end: Date.now(), id: active.id })
+      setRunning(false)
+      clearInterval(timer)
+    }
   }
 
   React.useEffect(() => {
-    if (running) {
+    if (running && active) {
       let startingTime = Date.now()
       let t = setInterval(handleTick, 100, startingTime)
       setStart(startingTime)
       setTimer(t)
+      dispatch({ type: 'start', start: startingTime, id: active.id })
     }
-  }, [running])
+  }, [running, active, dispatch])
 
   function handleTick(initialTime) {
     setDuration(Math.floor((Date.now() - initialTime) / 100))
@@ -60,12 +65,26 @@ const TimerSection = ({ children, className, ...restProps }) => {
       style={{ paddingBottom: 0 }}
       {...restProps}>
       <Container post>
-        <Box justifyBetween alignEnd>
-          <main>
-            <Text heading5 as="h2">
-              Started at:{' '}
-              {start ? dayjs(start).format('MMMM DD, YYYY on hh:mm a') : null}
+        <header className={styles.header}>
+          <Text
+            heading6
+            secondary
+            as="h2"
+            style={{ textTransform: 'uppercase', letterSpacing: 1.44 }}>
+            Now Burning
+          </Text>
+          {active ? (
+            <Text heading4 as="p">
+              {active.text}
             </Text>
+          ) : (
+            <Text heading4 as="p" secondary>
+              Please burn a task from your list!
+            </Text>
+          )}
+        </header>
+        <Box justifyBetween alignCenter className={styles.counter}>
+          <main>
             <Text heading1 style={{ fontVariantNumeric: 'tabular-nums' }}>
               {useMemo(() => formatValue(hours), [hours])}:
             </Text>
@@ -83,13 +102,19 @@ const TimerSection = ({ children, className, ...restProps }) => {
               onClick={() => setRunning(true)}
               style={{ marginRight: 8 }}
               disabled={running}>
-              Start
+              Burn
             </Button>
             <Button small secondary onClick={stopTimer} disabled={!running}>
               Stop
             </Button>
           </footer>
         </Box>
+        {start && (
+          <footer className={styles.footer}>
+            <Text heading6>Started at: </Text>
+            <Text small>{dayjs(start).format('MMMM DD, YYYY on hh:mm a')}</Text>
+          </footer>
+        )}
       </Container>
     </Section>
   )

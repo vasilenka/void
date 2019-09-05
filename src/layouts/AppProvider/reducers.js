@@ -55,6 +55,8 @@ export function todoReducer(state, action) {
       const newTodo = {
         id: uuidv1(),
         text: action.text,
+        iterationsCounter: 0,
+        iterations: [],
       }
       return {
         counter: state.counter + 1,
@@ -66,10 +68,10 @@ export function todoReducer(state, action) {
       const index = state.todos.findIndex(todo => todo.id === action.id)
       let todo = Object.assign({}, state.todos[index])
 
-      let { iterationsCounter, iterations } = todo
-      iterationsCounter = iterationsCounter + 1
+      let { iterations } = todo
       let newIteration = { id: uuidv1(), start: action.start, end: null }
       iterations.unshift(newIteration)
+      todo.iterationsCounter++
 
       let todos = Object.assign([], state.todos)
       todos.splice(index, 1, todo)
@@ -85,14 +87,14 @@ export function todoReducer(state, action) {
       let todo = Object.assign({}, state.todos[index])
 
       let { iterations } = todo
-      let iterationIndex = iterations.findIndex(
-        iteration => iteration.id === action.iterationId
-      )
+      // let iterationIndex = iterations.findIndex(
+      //   iteration => iteration.id === action.iterationId
+      // )
 
-      let modifiedIteration = iterations[iterationIndex]
+      let modifiedIteration = iterations[0]
       modifiedIteration.end = action.end
 
-      iterations.splice(iterationIndex, 1, modifiedIteration)
+      iterations.splice(0, 1, modifiedIteration)
 
       let todos = Object.assign([], state.todos)
       todos.splice(index, 1, todo)

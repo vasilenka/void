@@ -3,3 +3,16 @@
 .root {
   padding-bottom: 0;
 }
+
+.header {
+  margin-bottom: $space-ml;
+}
+
+.counter {
+  padding-bottom: $space-sm;
+  margin-bottom: $space-sm;
+  border-bottom: 1px solid $dark-alpha-40;
+}
+
+.footer {
+}

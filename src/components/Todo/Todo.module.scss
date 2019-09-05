@@ -45,3 +45,15 @@
   width: 24px;
   height: 24px;
 }
+
+.iterationsCount {
+  width: 32px;
+  height: 32px;
+  display: block;
+  background-color: $brand-primary-10;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: $space-sm;
+}
