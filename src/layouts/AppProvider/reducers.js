@@ -39,12 +39,14 @@ export const initialTodos = {
       text: 'Masak indomie goreng',
       iterationsCounter: 0,
       iterations: [],
+      totalDuration: 0,
     },
     {
       id: uuidv1(),
       text: 'Say goodnight to dushi!',
       iterationsCounter: 0,
       iterations: [],
+      totalDuration: 0,
     },
   ],
 }
@@ -57,6 +59,7 @@ export function todoReducer(state, action) {
         text: action.text,
         iterationsCounter: 0,
         iterations: [],
+        totalDuration: 0,
       }
       return {
         counter: state.counter + 1,
@@ -93,8 +96,10 @@ export function todoReducer(state, action) {
 
       let modifiedIteration = iterations[0]
       modifiedIteration.end = action.end
-
       iterations.splice(0, 1, modifiedIteration)
+
+      let duration = action.end - modifiedIteration.start
+      todo.totalDuration = todo.totalDuration + duration
 
       let todos = Object.assign([], state.todos)
       todos.splice(index, 1, todo)

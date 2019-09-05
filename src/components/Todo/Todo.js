@@ -12,6 +12,7 @@ import Text from '../Text/Text'
 import FieldInput from '../FieldInput/FieldInput'
 import Box from '../../layouts/Box/Box'
 import Button from '../Button/Button'
+import { calculateFromMiliSeconds } from '../../utils/calculateTime'
 
 const Iteration = ({ iterationsCounter }) => {
   return <Text className={styles.iterationsCount}>{iterationsCounter}</Text>
@@ -65,6 +66,18 @@ const Todo = ({ todo, project, className, ...restProps }) => {
   const { dispatch, setActive, running, setRunning } = useContext(AppContext)
   let [hover, setHover] = useState(false)
   let [edit, setEdit] = useState(false)
+  let [time, setTime] = useState({})
+
+  useEffect(() => {
+    let { hours, minutes, seconds } = calculateFromMiliSeconds(
+      todo.totalDuration
+    )
+    setTime({
+      hours,
+      minutes,
+      seconds,
+    })
+  }, [todo])
 
   const runTodo = () => {
     if (!running) {
@@ -103,23 +116,31 @@ const Todo = ({ todo, project, className, ...restProps }) => {
       </Box>
       {!edit && (
         <Box as="footer" justifyEnd alignCenter className={styles.footer}>
+          <div
+            className={cx(styles.iconWrapper, styles.delete)}
+            onClick={() => dispatch({ type: 'delete', id: todo.id })}
+            style={{ opacity: hover ? 1 : 0, marginRight: 16 }}>
+            <DeleteIcon className={styles.icon} />
+          </div>
           {!running && hover && (
             <Button
               text
               disabled={running}
-              style={{ marginRight: 12 }}
+              style={{ marginRight: 8 }}
               onClick={runTodo}>
               Let's Burning!
             </Button>
           )}
-          <div
-            className={cx(styles.iconWrapper, styles.delete)}
-            onClick={() => dispatch({ type: 'delete', id: todo.id })}
-            style={{ opacity: hover ? 1 : 0 }}>
-            <DeleteIcon className={styles.icon} />
-          </div>
         </Box>
       )}
+      <Box>
+        <Text heading5 style={{ marginRight: 4 }}>
+          {time.hours}h
+        </Text>
+        <Text heading5 style={{ marginRight: 4 }}>
+          {time.minutes}min
+        </Text>
+      </Box>
     </Card>
   )
 }

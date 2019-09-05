@@ -9,6 +9,7 @@ import Container from '../../layouts/Container/Container'
 import Button from '../Button/Button'
 import Box from '../../layouts/Box/Box'
 import { AppContext } from '../../layouts/AppProvider/AppProvider'
+import { calculateFromCentiSeconds } from '../../utils/calculateTime'
 
 const TimerSection = ({ children, className, ...restProps }) => {
   let { dispatch, running, setRunning, active } = useContext(AppContext)
@@ -48,15 +49,15 @@ const TimerSection = ({ children, className, ...restProps }) => {
   }
 
   React.useLayoutEffect(() => {
-    let timerHour = Math.floor(duration / 36000)
-    if (hours !== timerHour) {
-      setHours(timerHour)
-    }
-    let timerMinutes = Math.floor((duration % 36000) / 600)
-    if (minutes !== timerMinutes) {
-      setMinutes(timerMinutes)
-    }
-    setSeconds(Math.floor(((duration % 36000) % 600) / 10))
+    let {
+      hours: timerHour,
+      minutes: timerMinutes,
+      seconds: timerSeconds,
+    } = calculateFromCentiSeconds(duration)
+
+    hours !== timerHour && setHours(timerHour)
+    minutes !== timerMinutes && setMinutes(timerMinutes)
+    setSeconds(timerSeconds)
   }, [duration, hours, minutes])
 
   return (
@@ -112,7 +113,7 @@ const TimerSection = ({ children, className, ...restProps }) => {
         {start && (
           <footer className={styles.footer}>
             <Text heading6>Started at: </Text>
-            <Text small>{dayjs(start).format('MMMM DD, YYYY on hh:mm a')}</Text>
+            <Text medium>{dayjs(start).format('MMM D, YYYY [at] h:mm a')}</Text>
           </footer>
         )}
       </Container>
