@@ -59,7 +59,7 @@ class SockyCore extends Component {
     this.cropper = new Socky(this.img, options);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.src !== this.props.src) {
       this.cropper
         .reset()

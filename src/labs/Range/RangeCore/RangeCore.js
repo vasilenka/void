@@ -143,7 +143,7 @@ export default class RangeCore extends Component {
     return null;
   };
 
-  componentWillReceiveProps = nextProps => {
+  UNSAFE_componentWillReceiveProps = nextProps => {
     this.handleSetTarget(nextProps);
   };
 
