@@ -97,14 +97,16 @@ const TimerSection = ({ children, className, ...restProps }) => {
             </Text>
           </main>
           <footer>
-            <Button
-              small
-              primary
-              onClick={() => setRunning(true)}
-              style={{ marginRight: 8 }}
-              disabled={running}>
-              Burn
-            </Button>
+            {active && (
+              <Button
+                small
+                primary
+                onClick={() => setRunning(true)}
+                style={{ marginRight: 8 }}
+                disabled={running}>
+                Burn
+              </Button>
+            )}
             <Button small secondary onClick={stopTimer} disabled={!running}>
               Stop
             </Button>
