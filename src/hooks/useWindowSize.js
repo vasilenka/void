@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react'
+import { useState, useLayoutEffect } from 'react'
 import { useEventListener } from './useEventListener'
 
 export const useWindowSize = () => {
