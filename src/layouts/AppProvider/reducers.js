@@ -53,6 +53,14 @@ export const initialTodos = {
 
 export function todoReducer(state, action) {
   switch (action.type) {
+    case 'update': {
+      console.log('🎈UPDATE...')
+      return {
+        counter: action.counter,
+        todos: [...action.todos],
+      }
+    }
+
     case 'add': {
       const newTodo = {
         id: uuidv1(),
