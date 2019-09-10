@@ -10,7 +10,6 @@ const MainPage = () => {
       <Helmet>
         <title>Void</title>
       </Helmet>
-
       <TimerSection />
       <TodoList />
     </>

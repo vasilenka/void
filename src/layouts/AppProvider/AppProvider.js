@@ -2,10 +2,13 @@ import styles from './AppProvider.module.scss'
 import React, { useReducer, useState } from 'react'
 import PropTypes from 'prop-types'
 
+import { createPersistedStore } from './../../hooks'
 import { initialTodos, todoReducer } from './reducers'
 
 import './AppProvider.module.scss'
 import '../../assets/fonts/fonts'
+
+let useTasks = createPersistedStore('__void::Task')
 
 export const AppContext = React.createContext({
   state: undefined,
@@ -13,7 +16,9 @@ export const AppContext = React.createContext({
 })
 
 const AppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(todoReducer, initialTodos)
+  let [state, dispatch] = useTasks(todoReducer, initialTodos)
+
+  // const [state, dispatch] = useReducer(todoReducer, initialTodos)
   const [active, setActive] = useState('')
   let [running, setRunning] = useState(false)
 
