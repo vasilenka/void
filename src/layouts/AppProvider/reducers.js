@@ -32,18 +32,11 @@ import { v1 as uuidv1 } from 'uuid'
 // }
 
 export const initialTodos = {
-  counter: 2,
+  counter: 1,
   todos: [
     {
       id: uuidv1(),
-      text: 'Masak indomie goreng',
-      iterationsCounter: 0,
-      iterations: [],
-      totalDuration: 0,
-    },
-    {
-      id: uuidv1(),
-      text: 'Say goodnight to dushi!',
+      text: 'Say goodnight to Dushi',
       iterationsCounter: 0,
       iterations: [],
       totalDuration: 0,
@@ -54,11 +47,7 @@ export const initialTodos = {
 export function todoReducer(state, action) {
   switch (action.type) {
     case 'update': {
-      console.log('🎈UPDATE...')
-      return {
-        counter: action.counter,
-        todos: [...action.todos],
-      }
+      return Object.assign({}, action.store)
     }
 
     case 'add': {

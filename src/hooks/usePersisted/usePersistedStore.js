@@ -1,67 +1,71 @@
-import { useReducer, useState, useEffect, useRef } from 'react'
-import useEventListener from '@use-it/event-listener'
+import { useReducer, useEffect, useState, useRef } from 'react'
+import _isEqual from 'lodash.isequal'
+// import useEventListener from '@use-it/event-listener'
 
-import createGlobalState from './createGlobalState'
+import { initLocalForage } from './createStore'
 
-const usePersistedStore = (reducers, initialState, key, { get, set }) => {
-  const globalState = useRef(null)
+const usePersistedStore = (reducers, initialState, key) => {
+  const lf = useRef(null)
 
-  // const [state, setState] = useState(() => get(key, initialState))
-  const [store, dispatch] = useReducer(reducers, get(key, initialState))
+  const [state, setState] = useState(initialState)
+  const [store, dispatch] = useReducer(reducers, state)
 
-  // subscribe to `storage` change events
-  useEventListener('storage', ({ key: k, newValue }) => {
-    if (k === key) {
-      const newState = JSON.parse(newValue)
-      if (store !== newState) {
-        console.log('🚀EMITTED ...')
-        // setState(newState)
-        dispatch({
-          type: 'update',
-          todos: newState.todos,
-          counter: newState.counter,
-        })
-      }
-    }
-  })
-
-  // only called on mount
   useEffect(() => {
-    // register a listener that calls `setState` when another instance emits
-    globalState.current = createGlobalState(key, dispatch, initialState)
+    if (lf.current) {
+      let observable = lf.current.newObservable({
+        crossTabNotification: true,
+        changeDetection: true,
+        key: key,
+      })
 
-    return () => {
-      globalState.current.deregister()
+      observable.subscribe({
+        next: args => {
+          if (args.crossTabNotification) {
+            if (!_isEqual(args.newValue, store)) {
+              setState(args.newValue)
+            } else {
+              console.log('SAME OTHER: ', args.newValue)
+              console.log('SAME STORE: ', store)
+            }
+          } else {
+            if (!_isEqual(args.newValue, args.oldValue)) {
+              dispatch({ type: 'update', store: args.newValue })
+            } else {
+              console.log('MEH')
+            }
+          }
+        },
+        error: err => {
+          console.log('ERROR: ', err)
+        },
+        complete: () => {
+          console.log('DESTROYED')
+        },
+      })
     }
+  }, [lf.current])
+
+  const setupLocalForage = async () => {
+    let forage = await initLocalForage(key, initialState, dispatch)
+    lf.current = forage.lf
+    dispatch({ type: 'update', store: forage.storedValue })
+  }
+
+  useEffect(() => {
+    setupLocalForage()
   }, [])
 
   useEffect(() => {
-    console.log('⏰STORE...')
+    if (!_isEqual(state, store)) {
+      window.location.reload()
+    }
+  }, [state])
 
-    set(key, store)
-
-    globalState.current.emit({
-      type: 'update',
-      todos: store.todos,
-      counter: store.counter,
-    })
-    // setState(store)
+  useEffect(() => {
+    if (lf.current) {
+      lf.current.setItem(key, store)
+    }
   }, [store])
-
-  // // Only persist to storage if state changes.
-  // useEffect(() => {
-  //   console.log(' 🗺️STATE...')
-
-  //   // persist to localStorage
-  //   set(key, state)
-
-  //   // inform all of the other instances in this tab
-  //   globalState.current.emit({
-  //     type: 'update',
-  //     todos: state.todos,
-  //     counter: state.counter,
-  //   })
-  // }, [state])
 
   return [store, dispatch]
 }

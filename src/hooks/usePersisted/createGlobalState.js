@@ -2,7 +2,10 @@ const globalState = {}
 
 const createGlobalState = (key, thisCallback, initialValue) => {
   if (!globalState[key]) {
-    globalState[key] = { callbacks: [], value: initialValue }
+    globalState[key] = {
+      callbacks: [],
+      value: initialValue,
+    }
   }
   globalState[key].callbacks.push(thisCallback)
   return {
