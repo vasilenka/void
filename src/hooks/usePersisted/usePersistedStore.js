@@ -1,6 +1,5 @@
 import { useReducer, useEffect, useState, useRef } from 'react'
 import _isEqual from 'lodash.isequal'
-// import useEventListener from '@use-it/event-listener'
 
 import { initLocalForage } from './createStore'
 
@@ -8,7 +7,7 @@ const usePersistedStore = (reducers, initialState, key) => {
   const lf = useRef(null)
 
   const [state, setState] = useState(initialState)
-  const [store, dispatch] = useReducer(reducers, state)
+  const [store, dispatch] = useReducer(reducers, initialState)
 
   useEffect(() => {
     if (lf.current) {
@@ -24,8 +23,8 @@ const usePersistedStore = (reducers, initialState, key) => {
             if (!_isEqual(args.newValue, store)) {
               setState(args.newValue)
             } else {
-              console.log('SAME OTHER: ', args.newValue)
-              console.log('SAME STORE: ', store)
+              console.log('OTHER ARGS: ', args.newValue)
+              console.log('OTHER STORE: ', store)
             }
           } else {
             if (!_isEqual(args.newValue, args.oldValue)) {
