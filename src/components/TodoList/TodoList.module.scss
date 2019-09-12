@@ -2,3 +2,67 @@
 
 .root {
 }
+
+.text {
+  font-family: $font-secondary;
+  font-size: 32px;
+  color: $dark-hex-90;
+  line-height: 1.5;
+}
+
+.font {
+  font-family: $font-primary;
+  font-size: 32px;
+  color: $dark-hex-90;
+  line-height: 1.5;
+}
+
+.textThin {
+  composes: text;
+  font-weight: 200;
+}
+.textRegular {
+  composes: text;
+  font-weight: 400;
+}
+.textMedium {
+  composes: text;
+  font-weight: 500;
+}
+.textBold {
+  composes: text;
+  font-weight: 700;
+}
+.textExtraBold {
+  composes: text;
+  font-weight: 800;
+}
+
+.light {
+  composes: font;
+  font-weight: 100;
+}
+.bold {
+  composes: font;
+  font-weight: 700;
+}
+.book {
+  composes: font;
+  font-weight: 300;
+}
+.extraBold {
+  composes: font;
+  font-weight: 800;
+}
+.regular {
+  composes: font;
+  font-weight: 400;
+}
+.semibold {
+  composes: font;
+  font-weight: 600;
+}
+.medium {
+  composes: font;
+  font-weight: 500;
+}

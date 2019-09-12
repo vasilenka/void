@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import { createPersistedStore } from './../../hooks'
 import { initialTodos, todoReducer } from './reducers'
+import { ReactComponent as Circle } from './../../assets/svg/circle.inline.svg'
 
 import './AppProvider.module.scss'
 import '../../assets/fonts/fonts'
@@ -25,7 +26,11 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{ state, dispatch, active, setActive, running, setRunning }}>
-      <main className={styles.root}>{children}</main>
+      <main className={styles.root}>
+        {children}
+        <Circle className={styles.circle1} />
+        <Circle className={styles.circle2} />
+      </main>
     </AppContext.Provider>
   )
 }

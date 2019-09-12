@@ -41,7 +41,9 @@ body {
   position: relative;
   font-family: $font-primary;
   color: $dark-alpha-70;
-  background-color: $brand-primary-80;
+  // background-color: #d0f3e6;
+  // background-color: $bg-sea-100;
+  background-color: $bg-dust-100;
 }
 
 // Render the `main` element consistently in IE.

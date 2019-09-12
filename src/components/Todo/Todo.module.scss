@@ -1,6 +1,7 @@
 @import 'src/tokens';
 
 .root {
+  position: relative;
   &:not(:last-child) {
     margin-bottom: $space-s;
   }
@@ -56,4 +57,36 @@
   justify-content: center;
   align-items: center;
   margin-right: $space-sm;
+}
+
+.duration {
+  // margin-right: $space-xs;
+}
+
+.playWrapper {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  background-color: transparent;
+  color: $dark-alpha-20;
+  transition: all 0.36s;
+  &:hover {
+    color: $tone-success-100;
+    transition: all 0.28s;
+  }
+}
+
+.playIcon {
+  display: block;
+  width: 28px;
+  height: 28px;
 }

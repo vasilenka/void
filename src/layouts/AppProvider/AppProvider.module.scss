@@ -2,4 +2,29 @@
 @import 'src/base';
 
 .root {
+  // position: relative;
+}
+
+.circle1 {
+  position: fixed;
+  width: 84vw;
+  height: 84vw;
+  left: -8%;
+  top: -70%;
+  // color: #018c7f;
+  color: #d0f3e6;
+  z-index: -999;
+  display: block;
+}
+
+.circle2 {
+  position: fixed;
+  width: 25vw;
+  height: 25vw;
+  right: -3%;
+  bottom: -10%;
+  // color: #d0f3e6;
+  color: $bg-sea-100;
+  z-index: -999;
+  display: block;
 }

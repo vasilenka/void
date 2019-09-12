@@ -6,12 +6,13 @@ import { AppContext } from '../../layouts/AppProvider/AppProvider'
 
 import { ReactComponent as DeleteIcon } from './../../assets/svg/delete.inline.svg'
 import { ReactComponent as CheckIcon } from './../../assets/svg/checklist.inline.svg'
+import { ReactComponent as PlayIcon } from './../../assets/svg/play.inline.svg'
+import { ReactComponent as StopIcon } from './../../assets/svg/stop.inline.svg'
 
 import Card from '../Card/Card'
 import Text from '../Text/Text'
 import FieldInput from '../FieldInput/FieldInput'
 import Box from '../../layouts/Box/Box'
-import Button from '../Button/Button'
 import { calculateFromMiliSeconds } from '../../utils/calculateTime'
 
 const Iteration = ({ iterationsCounter }) => {
@@ -62,6 +63,14 @@ const EditMode = ({ id, setEdit, dispatch, text, setValue, ...props }) => {
   )
 }
 
+const Running = props => {
+  return (
+    <button className={styles.playWrapper} onClick={props.play}>
+      <PlayIcon className={styles.playIcon} />
+    </button>
+  )
+}
+
 const Todo = ({ todo, project, className, ...restProps }) => {
   const { dispatch, setActive, running, setRunning } = useContext(AppContext)
   let [hover, setHover] = useState(false)
@@ -94,6 +103,7 @@ const Todo = ({ todo, project, className, ...restProps }) => {
       justifyBetween
       onMouseOver={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      style={{ paddingLeft: 16, paddingRight: 56 }}
       {...restProps}>
       <Box as="header" alignCenter style={{ flex: 1 }}>
         {edit ? (
@@ -122,18 +132,9 @@ const Todo = ({ todo, project, className, ...restProps }) => {
             style={{ opacity: hover ? 1 : 0, marginRight: 16 }}>
             <DeleteIcon className={styles.icon} />
           </div>
-          {!running && hover && (
-            <Button
-              text
-              disabled={running}
-              style={{ marginRight: 8 }}
-              onClick={runTodo}>
-              Let's Burning!
-            </Button>
-          )}
         </Box>
       )}
-      <Box>
+      <Box className={styles.duration}>
         <Text heading5 style={{ marginRight: 4 }}>
           {time.hours}h
         </Text>
@@ -141,6 +142,7 @@ const Todo = ({ todo, project, className, ...restProps }) => {
           {time.minutes}min
         </Text>
       </Box>
+      {!running && <Running play={runTodo} />}
     </Card>
   )
 }
