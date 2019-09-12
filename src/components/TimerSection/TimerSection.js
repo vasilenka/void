@@ -123,7 +123,7 @@ const TimerSection = ({ children, className, ...restProps }) => {
             <footer>
               {!running && (
                 <Play
-                  disabled={running || !active}
+                  disabled={running || !active.id}
                   play={() => setRunning(true)}
                 />
               )}

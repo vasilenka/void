@@ -9,7 +9,14 @@ const usePersistedStore = (reducers, initialState, key) => {
   const [state, setState] = useState(initialState)
   const [store, dispatch] = useReducer(reducers, initialState)
 
-  useEffect(() => {
+  // useEffect(() => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [lf.current])
+
+  const setupLocalForage = async () => {
+    let forage = await initLocalForage(key, initialState, dispatch)
+    lf.current = forage.lf
+    dispatch({ type: 'update', store: forage.storedValue })
     if (lf.current) {
       let observable = lf.current.newObservable({
         crossTabNotification: true,
@@ -42,13 +49,6 @@ const usePersistedStore = (reducers, initialState, key) => {
         },
       })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const setupLocalForage = async () => {
-    let forage = await initLocalForage(key, initialState, dispatch)
-    lf.current = forage.lf
-    dispatch({ type: 'update', store: forage.storedValue })
   }
 
   useEffect(() => {
