@@ -12,7 +12,7 @@ const TodoList = ({ children, className, ...restProps }) => {
   return (
     <Section className={cx(styles.root)} {...restProps}>
       <Container post>
-        <NewTodo style={{ marginBottom: 48 }} />
+        <NewTodo style={{ marginBottom: 24 }} />
         {state && state.todos.map(todo => <Todo key={todo.id} todo={todo} />)}
       </Container>
     </Section>

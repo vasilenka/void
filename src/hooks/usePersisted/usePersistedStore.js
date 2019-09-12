@@ -42,7 +42,7 @@ const usePersistedStore = (reducers, initialState, key) => {
         },
       })
     }
-  }, [lf.current])
+  }, [])
 
   const setupLocalForage = async () => {
     let forage = await initLocalForage(key, initialState, dispatch)

@@ -47,23 +47,23 @@ const TimerSection = ({ children, className, ...restProps }) => {
   let [minutes, setMinutes] = useState(0)
   let [seconds, setSeconds] = useState(0)
 
-  const stopTimer = () => {
-    if (running && active) {
-      dispatch({ type: 'stop', end: Date.now(), id: active.id })
+  const stopTimer = id => {
+    if (running) {
+      dispatch({ type: 'stop', end: Date.now(), id })
       setRunning(false)
       clearInterval(timer)
     }
   }
 
   React.useEffect(() => {
-    if (running && active) {
+    if (running) {
       let startingTime = Date.now()
       let t = setInterval(handleTick, 100, startingTime)
       setStart(startingTime)
       setTimer(t)
       dispatch({ type: 'start', start: startingTime, id: active.id })
     }
-  }, [running, active, dispatch])
+  }, [running, dispatch])
 
   function handleTick(initialTime) {
     setDuration(Math.floor((Date.now() - initialTime) / 100))
@@ -97,12 +97,12 @@ const TimerSection = ({ children, className, ...restProps }) => {
               style={{ textTransform: 'uppercase', letterSpacing: 1.44 }}>
               Now Burning
             </Text>
-            {active ? (
-              <Text heading4 as="p">
+            {active.text ? (
+              <Text heading4 as="p" white>
                 {active.text}
               </Text>
             ) : (
-              <Text heading4 as="p" secondary>
+              <Text heading4 as="p" whiteSecondary>
                 Please burn a task from your list!
               </Text>
             )}
@@ -127,7 +127,10 @@ const TimerSection = ({ children, className, ...restProps }) => {
                 />
               )}
               {running && (
-                <Stop disabled={!running || !active} stop={stopTimer} />
+                <Stop
+                  disabled={!running || !active}
+                  stop={() => stopTimer(active.id)}
+                />
               )}
             </footer>
           </Box>

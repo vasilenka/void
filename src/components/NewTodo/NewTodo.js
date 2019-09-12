@@ -23,7 +23,7 @@ const NewTodo = ({ children, className, ...restProps }) => {
         type="text"
         id="New task"
         name="New task"
-        label="What you gonna do?"
+        placeholder="What you gonna do?"
         isRequired={false}
         value={title}
         setValue={e => setTitle(e.target.value)}

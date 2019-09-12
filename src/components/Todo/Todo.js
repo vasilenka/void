@@ -7,7 +7,6 @@ import { AppContext } from '../../layouts/AppProvider/AppProvider'
 import { ReactComponent as DeleteIcon } from './../../assets/svg/delete.inline.svg'
 import { ReactComponent as CheckIcon } from './../../assets/svg/checklist.inline.svg'
 import { ReactComponent as PlayIcon } from './../../assets/svg/play.inline.svg'
-import { ReactComponent as StopIcon } from './../../assets/svg/stop.inline.svg'
 
 import Card from '../Card/Card'
 import Text from '../Text/Text'
@@ -72,7 +71,7 @@ const Running = props => {
 }
 
 const Todo = ({ todo, project, className, ...restProps }) => {
-  const { dispatch, setActive, running, setRunning } = useContext(AppContext)
+  const { dispatch, running, setRunning } = useContext(AppContext)
   let [hover, setHover] = useState(false)
   let [edit, setEdit] = useState(false)
   let [time, setTime] = useState({})
@@ -88,9 +87,9 @@ const Todo = ({ todo, project, className, ...restProps }) => {
     })
   }, [todo])
 
-  const runTodo = () => {
+  const runTodo = id => {
     if (!running) {
-      setActive(todo)
+      dispatch({ type: 'active', id })
       setRunning(true)
     }
   }
@@ -142,7 +141,7 @@ const Todo = ({ todo, project, className, ...restProps }) => {
           {time.minutes}min
         </Text>
       </Box>
-      {!running && <Running play={runTodo} />}
+      {!running && <Running play={() => runTodo(todo.id)} />}
     </Card>
   )
 }

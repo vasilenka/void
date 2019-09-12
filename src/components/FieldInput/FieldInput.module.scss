@@ -3,7 +3,7 @@
 .root {
   width: 100%;
   border: 1px solid;
-  border-radius: 2px;
+  border-radius: 3px;
   outline: none;
   transition: all 0.3s;
   box-sizing: border-box;
@@ -21,11 +21,17 @@
 
 .light {
   composes: root;
-  border-color: $dark-alpha-20;
+  border-color: #f8f8f8;
+  background-color: #ffffff;
+  &:hover {
+    transition: all 0.28s;
+    background-color: #f8f8f8;
+  }
   &:focus,
   &:active {
-    border-color: $brand-primary-200;
+    border-color: #f8f8f8;
     transition: all 0.28s;
+    background-color: #f8f8f8;
   }
 }
 

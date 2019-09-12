@@ -18,14 +18,11 @@ export const AppContext = React.createContext({
 
 const AppProvider = ({ children }) => {
   let [state, dispatch] = useTasks(todoReducer, initialTodos)
-
-  // const [state, dispatch] = useReducer(todoReducer, initialTodos)
-  const [active, setActive] = useState('')
   let [running, setRunning] = useState(false)
 
   return (
     <AppContext.Provider
-      value={{ state, dispatch, active, setActive, running, setRunning }}>
+      value={{ state, dispatch, active: state.active, running, setRunning }}>
       <main className={styles.root}>
         {children}
         <Circle className={styles.circle1} />

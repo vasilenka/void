@@ -14,7 +14,9 @@ class FieldLabel extends Component {
       return null
     }
 
-    return <Secondary className={styles.secondaryLabel}>{secondaryLabel}</Secondary>
+    return (
+      <Secondary className={styles.secondaryLabel}>{secondaryLabel}</Secondary>
+    )
   }
 
   renderTertiary = () => {
@@ -28,7 +30,16 @@ class FieldLabel extends Component {
   }
 
   render() {
-    let { id, label, inline, small, secondaryLabel, tertiaryLabel, className, ...restProps } = this.props
+    let {
+      id,
+      label,
+      inline,
+      small,
+      secondaryLabel,
+      tertiaryLabel,
+      className,
+      ...restProps
+    } = this.props
 
     const labelProps = {
       labelMedium: !small,
@@ -43,6 +54,7 @@ class FieldLabel extends Component {
           [styles.root]: true,
           [styles.stack]: !inline,
           [styles.inline]: inline,
+          [className]: className,
         })}
         {...labelProps}
         as="label">

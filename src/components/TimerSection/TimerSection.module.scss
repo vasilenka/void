@@ -10,9 +10,9 @@
   background-color: #018c7f;
   // background-color: #63e7a3;
   // background-color: #ffe020;
-  color: #ffffff;
   border-radius: 6px;
-  box-shadow: 0px 20px 24px -12px rgba(0, 0, 0, 0.2);
+  // box-shadow: 0px 24px 24px -20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 20px 24px -20px rgba(1, 140, 127, 0.8);
 }
 
 .header {
@@ -28,6 +28,8 @@
 .counts {
   font-family: $font-secondary;
   font-feature-settings: 'ss01' 1;
+  font-feature-settings: 'calt' 1;
+  color: $light-alpha-100;
 }
 
 .footer {

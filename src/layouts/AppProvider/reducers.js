@@ -33,6 +33,7 @@ import { v1 as uuidv1 } from 'uuid'
 
 export const initialTodos = {
   counter: 1,
+  active: {},
   todos: [
     {
       id: uuidv1(),
@@ -42,6 +43,7 @@ export const initialTodos = {
       totalDuration: 0,
     },
   ],
+  version: 0.1,
 }
 
 export function todoReducer(state, action) {
@@ -59,8 +61,19 @@ export function todoReducer(state, action) {
         totalDuration: 0,
       }
       return {
+        ...state,
         counter: state.counter + 1,
         todos: [newTodo, ...state.todos],
+      }
+    }
+
+    case 'active': {
+      const index = state.todos.findIndex(todo => todo.id === action.id)
+      let todo = Object.assign({}, state.todos[index])
+
+      return {
+        ...state,
+        active: todo,
       }
     }
 
@@ -77,7 +90,9 @@ export function todoReducer(state, action) {
       todos.splice(index, 1, todo)
 
       return {
+        ...state,
         counter: state.counter,
+        active: todo,
         todos: todos,
       }
     }
@@ -101,6 +116,7 @@ export function todoReducer(state, action) {
       let todos = Object.assign([], state.todos)
       todos.splice(index, 1, todo)
       return {
+        ...state,
         counter: state.counter,
         todos: todos,
       }
@@ -113,6 +129,7 @@ export function todoReducer(state, action) {
       let todos = Object.assign([], state.todos)
       todos.splice(index, 1, todo)
       return {
+        ...state,
         counter: state.counter,
         todos: todos,
       }
@@ -123,6 +140,8 @@ export function todoReducer(state, action) {
       const todos = Object.assign([], state.todos)
       todos.splice(index, 1)
       return {
+        ...state,
+        active: state.active.id === action.id ? {} : state.active,
         counter: state.counter - 1,
         todos: todos,
       }

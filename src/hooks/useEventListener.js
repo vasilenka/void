@@ -12,8 +12,10 @@ const useEventListener = (element, type, handler, options) => {
   const handlerRef = useRef(handler)
 
   useEffect(() => {
-    handlerRef.current = handler
-  }, [handler])
+    if (handler) {
+      handlerRef.current = handler
+    }
+  }, [])
 
   useEffect(() => {
     const listener = event => handlerRef.current(event)
