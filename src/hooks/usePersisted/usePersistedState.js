@@ -25,6 +25,7 @@ const usePersistedState = (initialState, key, { get, set }) => {
     return () => {
       globalState.current.deregister()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Only persist to storage if state changes.
@@ -34,6 +35,7 @@ const usePersistedState = (initialState, key, { get, set }) => {
 
     // inform all of the other instances in this tab
     globalState.current.emit(state)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state])
 
   return [state, setState]

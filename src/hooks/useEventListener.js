@@ -15,6 +15,7 @@ const useEventListener = (element, type, handler, options) => {
     if (handler) {
       handlerRef.current = handler
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -24,9 +25,11 @@ const useEventListener = (element, type, handler, options) => {
       : window.addEventListener(type, listener, options)
     return () => {
       element.current
-        ? element.current.removeEventListener(type, listener, options)
+        ? // eslint-disable-next-line react-hooks/exhaustive-deps
+          element.current.removeEventListener(type, listener, options)
         : window.removeEventListener(type, listener, options)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type, options])
 }
 

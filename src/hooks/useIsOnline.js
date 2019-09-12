@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useEventListener } from './useEventListener'
 
 const getInitialStatus = () => {
   return typeof navigator !== 'undefined' &&

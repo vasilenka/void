@@ -1,5 +1,5 @@
 import styles from './AppProvider.module.scss'
-import React, { useReducer, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { createPersistedStore } from './../../hooks'

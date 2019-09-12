@@ -23,6 +23,7 @@ const useMediaQuery = query => {
 
   useEffect(() => {
     setMatches(() => window.matchMedia(query).matches)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

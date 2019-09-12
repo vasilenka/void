@@ -42,6 +42,7 @@ const usePersistedStore = (reducers, initialState, key) => {
         },
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const setupLocalForage = async () => {
@@ -52,18 +53,21 @@ const usePersistedStore = (reducers, initialState, key) => {
 
   useEffect(() => {
     setupLocalForage()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     if (!_isEqual(state, store)) {
       window.location.reload()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state])
 
   useEffect(() => {
     if (lf.current) {
       lf.current.setItem(key, store)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store])
 
   return [store, dispatch]

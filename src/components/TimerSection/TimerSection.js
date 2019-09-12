@@ -63,6 +63,7 @@ const TimerSection = ({ children, className, ...restProps }) => {
       setTimer(t)
       dispatch({ type: 'start', start: startingTime, id: active.id })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [running, dispatch])
 
   function handleTick(initialTime) {
