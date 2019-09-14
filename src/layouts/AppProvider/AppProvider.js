@@ -22,24 +22,50 @@ const AppProvider = ({ children }) => {
   let [duration, setDuration] = useState(0)
   let [start, setStart] = useState()
 
+  React.useEffect(() => {
+    console.log('ROOT: ', timer)
+  }, [timer])
+
+  React.useEffect(() => {
+    if (state?.active?.iterations?.length > 0) {
+      if (state.active.iterations[0].end) {
+        setDuration(
+          Math.floor(
+            (state.active.iterations[0].end -
+              state.active.iterations[0].start) /
+              100
+          )
+        )
+      } else {
+        setDuration(
+          Math.floor((Date.now() - state.active.iterations[0].start) / 100)
+        )
+      }
+      setStart(state.active.iterations[0].start)
+    } else {
+      setDuration(0)
+    }
+  }, [state.active])
+
   const handleTick = initialTime => {
     setDuration(Math.floor((Date.now() - initialTime) / 100))
   }
 
-  const stopTimer = id => {
+  const stopTimer = (id, updateStore = true) => {
     if (state.running) {
-      dispatch({ type: 'stop', end: Date.now(), id })
-      clearInterval(timer)
+      if (updateStore) {
+        dispatch({ type: 'stop', end: Date.now(), id })
+      }
     }
+    clearInterval(timer)
   }
 
-  const runTimer = id => {
+  const runTimer = (id, start = Date.now(), updateStore = true) => {
     if (!state.running) {
-      let start = Date.now()
       let t = setInterval(handleTick, 100, start)
       setStart(start)
       setTimer(t)
-      dispatch({ type: 'start', start, id })
+      if (updateStore) dispatch({ type: 'start', start, id })
     }
   }
 
@@ -56,6 +82,9 @@ const AppProvider = ({ children }) => {
         setDuration,
         start,
         setStart,
+        handleTick,
+        timer,
+        setTimer,
       }}>
       <main className={styles.root}>{children}</main>
     </AppContext.Provider>

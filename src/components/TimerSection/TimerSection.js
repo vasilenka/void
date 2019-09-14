@@ -37,9 +37,26 @@ const Stop = ({ stop, disabled, ...restProps }) => {
 }
 
 const TimerSection = ({ children, className, ...restProps }) => {
-  let { running, runTimer, stopTimer, active, duration, start } = useContext(
-    AppContext
-  )
+  let {
+    state,
+    running,
+    runTimer,
+    stopTimer,
+    active,
+    duration,
+    setDuration,
+    start,
+    timer,
+    setStart,
+    handleTick,
+    setTimer,
+  } = useContext(AppContext)
+
+  let [t, setT] = useState(timer)
+
+  React.useEffect(() => {
+    console.log('IN: ', t)
+  }, [t])
 
   let [hours, setHours] = useState(0)
   let [minutes, setMinutes] = useState(0)
@@ -62,14 +79,21 @@ const TimerSection = ({ children, className, ...restProps }) => {
   }, [duration, hours, minutes])
 
   React.useEffect(() => {
-    console.log('RUNNING:', running)
-    return () => {
-      if (active.id) {
-        console.log('Stopping...')
-        // stopTimer(active.id)
-      }
+    if (active.id && running) {
+      let timer = setInterval(handleTick, 100, active.iterations[0].start)
+      setT(timer)
+      setDuration(Math.floor((Date.now() - active.iterations[0].start) / 100))
+      runTimer(active.id, active.iterations[0].start, false)
+      setStart(active.iterations[0].start)
+    } else {
+      clearInterval(t)
+      stopTimer(active.id, false)
     }
-  }, [running])
+    return () => {
+      clearInterval(t)
+      stopTimer(active.id, false)
+    }
+  }, [running, active])
 
   return (
     <section className={cx(styles.root)} {...restProps}>
@@ -106,10 +130,10 @@ const TimerSection = ({ children, className, ...restProps }) => {
               </Text>
             </main>
             <footer>
-              {!running && (
+              {!running && state.todos.length > 0 && active.id && (
                 <Play disabled={running} play={() => runTimer(active.id)} />
               )}
-              {running && (
+              {running && state.todos.length > 0 && active.id && (
                 <Stop disabled={!running} stop={() => stopTimer(active.id)} />
               )}
             </footer>
