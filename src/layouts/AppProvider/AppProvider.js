@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 
 import { createPersistedStore } from './../../hooks'
 import { initialTodos, todoReducer } from './reducers'
-import { ReactComponent as Circle } from './../../assets/svg/circle.inline.svg'
 
 import './AppProvider.module.scss'
 import '../../assets/fonts/fonts'
@@ -18,16 +17,47 @@ export const AppContext = React.createContext({
 
 const AppProvider = ({ children }) => {
   let [state, dispatch] = useTasks(todoReducer, initialTodos)
-  let [running, setRunning] = useState(false)
+
+  let [timer, setTimer] = useState()
+  let [duration, setDuration] = useState(0)
+  let [start, setStart] = useState()
+
+  const handleTick = initialTime => {
+    setDuration(Math.floor((Date.now() - initialTime) / 100))
+  }
+
+  const stopTimer = id => {
+    if (state.running) {
+      dispatch({ type: 'stop', end: Date.now(), id })
+      clearInterval(timer)
+    }
+  }
+
+  const runTimer = id => {
+    if (!state.running) {
+      let start = Date.now()
+      let t = setInterval(handleTick, 100, start)
+      setStart(start)
+      setTimer(t)
+      dispatch({ type: 'start', start, id })
+    }
+  }
 
   return (
     <AppContext.Provider
-      value={{ state, dispatch, active: state.active, running, setRunning }}>
-      <main className={styles.root}>
-        {children}
-        <Circle className={styles.circle1} />
-        <Circle className={styles.circle2} />
-      </main>
+      value={{
+        state,
+        dispatch,
+        active: state.active,
+        running: state.running,
+        stopTimer,
+        runTimer,
+        duration,
+        setDuration,
+        start,
+        setStart,
+      }}>
+      <main className={styles.root}>{children}</main>
     </AppContext.Provider>
   )
 }

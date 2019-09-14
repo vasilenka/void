@@ -3,6 +3,7 @@ import Helmet from 'react-helmet'
 
 import TimerSection from '../components/TimerSection/TimerSection'
 import TodoList from '../components/TodoList/TodoList'
+import Circles from '../components/SVG/Circle'
 
 const MainPage = () => {
   return (
@@ -12,6 +13,7 @@ const MainPage = () => {
       </Helmet>
       <TimerSection />
       <TodoList />
+      <Circles />
     </>
   )
 }

@@ -34,6 +34,7 @@ import { v1 as uuidv1 } from 'uuid'
 export const initialTodos = {
   counter: 1,
   active: {},
+  running: false,
   todos: [
     {
       id: uuidv1(),
@@ -67,16 +68,6 @@ export function todoReducer(state, action) {
       }
     }
 
-    case 'active': {
-      const index = state.todos.findIndex(todo => todo.id === action.id)
-      let todo = Object.assign({}, state.todos[index])
-
-      return {
-        ...state,
-        active: todo,
-      }
-    }
-
     case 'start': {
       const index = state.todos.findIndex(todo => todo.id === action.id)
       let todo = Object.assign({}, state.todos[index])
@@ -84,14 +75,14 @@ export function todoReducer(state, action) {
       let { iterations } = todo
       let newIteration = { id: uuidv1(), start: action.start, end: null }
       iterations.unshift(newIteration)
-      todo.iterationsCounter++
+      todo.iterationsCounter = iterations.length
 
       let todos = Object.assign([], state.todos)
       todos.splice(index, 1, todo)
 
       return {
         ...state,
-        counter: state.counter,
+        running: true,
         active: todo,
         todos: todos,
       }
@@ -117,6 +108,7 @@ export function todoReducer(state, action) {
       todos.splice(index, 1, todo)
       return {
         ...state,
+        running: false,
         counter: state.counter,
         todos: todos,
       }
@@ -141,6 +133,7 @@ export function todoReducer(state, action) {
       todos.splice(index, 1)
       return {
         ...state,
+        running: state.active.id === action.id ? false : true,
         active: state.active.id === action.id ? {} : state.active,
         counter: state.counter - 1,
         todos: todos,

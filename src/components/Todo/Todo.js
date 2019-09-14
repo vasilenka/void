@@ -3,9 +3,6 @@ import React, { useEffect, useContext, useState, useRef } from 'react'
 import cx from 'classnames'
 
 import { useMotionValue } from 'framer-motion'
-import { findIndex } from '../../utils/find-index'
-import move from 'array-move'
-
 import { AppContext } from '../../layouts/AppProvider/AppProvider'
 
 import { ReactComponent as DeleteIcon } from './../../assets/svg/delete.inline.svg'
@@ -17,6 +14,7 @@ import Text from '../Text/Text'
 import FieldInput from '../FieldInput/FieldInput'
 import Box from '../../layouts/Box/Box'
 import { calculateFromMiliSeconds } from '../../utils/calculateTime'
+import { runTodo } from './../TimerSection/TimerSection'
 
 const Iteration = ({ iterationsCounter }) => {
   return <Text className={styles.iterationsCount}>{iterationsCounter}</Text>
@@ -41,12 +39,6 @@ const EditMode = ({ id, setEdit, dispatch, text, setValue, ...props }) => {
 
   return (
     <>
-      <button
-        className={cx(styles.iconWrapper, styles.delete)}
-        style={{ marginRight: 8 }}
-        onClick={deleteTodo}>
-        <DeleteIcon className={styles.icon} />
-      </button>
       <FieldInput
         ref={ref}
         value={editedText}
@@ -61,6 +53,12 @@ const EditMode = ({ id, setEdit, dispatch, text, setValue, ...props }) => {
         className={cx(styles.iconWrapper, styles.done)}
         onClick={submitTodo}>
         <CheckIcon className={styles.icon} />
+      </button>
+      <button
+        className={cx(styles.iconWrapper, styles.delete)}
+        style={{ marginRight: 8 }}
+        onClick={deleteTodo}>
+        <DeleteIcon className={styles.icon} />
       </button>
     </>
   )
@@ -83,7 +81,7 @@ const Todo = ({
   moveItem,
   ...restProps
 }) => {
-  const { dispatch, running, setRunning } = useContext(AppContext)
+  const { dispatch, running, runTimer } = useContext(AppContext)
   let [hover, setHover] = useState(false)
   let [edit, setEdit] = useState(false)
   let [time, setTime] = useState({})
@@ -112,20 +110,13 @@ const Todo = ({
     })
   }, [todo])
 
-  const runTodo = id => {
-    if (!running) {
-      dispatch({ type: 'active', id })
-      setRunning(true)
-    }
-  }
-
   return (
     <Card
       ref={ref}
       initial={false}
       animate={isDragging ? onTop : flat}
       whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 1.12 }}
+      // whileTap={{ scale: 1.12 }}
       drag="y"
       dragOriginY={dragOriginY}
       dragConstraints={{ top: 0, bottom: 0 }}
@@ -191,7 +182,7 @@ const Todo = ({
           {time.minutes}min
         </Text>
       </Box>
-      {!running && <Running play={() => runTodo(todo.id)} />}
+      {!running && <Running play={() => runTimer(todo.id)} />}
     </Card>
   )
 }

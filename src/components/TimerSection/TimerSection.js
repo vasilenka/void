@@ -37,38 +37,13 @@ const Stop = ({ stop, disabled, ...restProps }) => {
 }
 
 const TimerSection = ({ children, className, ...restProps }) => {
-  let { dispatch, running, setRunning, active } = useContext(AppContext)
-
-  let [timer, setTimer] = useState()
-  let [duration, setDuration] = useState(0)
-  let [start, setStart] = useState()
+  let { running, runTimer, stopTimer, active, duration, start } = useContext(
+    AppContext
+  )
 
   let [hours, setHours] = useState(0)
   let [minutes, setMinutes] = useState(0)
   let [seconds, setSeconds] = useState(0)
-
-  const stopTimer = id => {
-    if (running) {
-      dispatch({ type: 'stop', end: Date.now(), id })
-      setRunning(false)
-      clearInterval(timer)
-    }
-  }
-
-  React.useEffect(() => {
-    if (running) {
-      let startingTime = Date.now()
-      let t = setInterval(handleTick, 100, startingTime)
-      setStart(startingTime)
-      setTimer(t)
-      dispatch({ type: 'start', start: startingTime, id: active.id })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [running, dispatch])
-
-  function handleTick(initialTime) {
-    setDuration(Math.floor((Date.now() - initialTime) / 100))
-  }
 
   function formatValue(val) {
     return val < 10 ? '0' + val : val
@@ -85,6 +60,16 @@ const TimerSection = ({ children, className, ...restProps }) => {
     minutes !== timerMinutes && setMinutes(timerMinutes)
     setSeconds(timerSeconds)
   }, [duration, hours, minutes])
+
+  React.useEffect(() => {
+    console.log('RUNNING:', running)
+    return () => {
+      if (active.id) {
+        console.log('Stopping...')
+        // stopTimer(active.id)
+      }
+    }
+  }, [running])
 
   return (
     <section className={cx(styles.root)} {...restProps}>
@@ -122,16 +107,10 @@ const TimerSection = ({ children, className, ...restProps }) => {
             </main>
             <footer>
               {!running && (
-                <Play
-                  disabled={running || !active.id}
-                  play={() => setRunning(true)}
-                />
+                <Play disabled={running} play={() => runTimer(active.id)} />
               )}
               {running && (
-                <Stop
-                  disabled={!running || !active}
-                  stop={() => stopTimer(active.id)}
-                />
+                <Stop disabled={!running} stop={() => stopTimer(active.id)} />
               )}
             </footer>
           </Box>
