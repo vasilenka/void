@@ -5,6 +5,24 @@
   &:not(:last-child) {
     margin-bottom: $space-s;
   }
+  @include screen(smallPhone) {
+    flex-direction: column;
+  }
+  @include screen(phone) {
+    flex-direction: column;
+  }
+  @include screen(tablet) {
+    flex-direction: row;
+  }
+  @include screen(tabletLandscape) {
+    flex-direction: row;
+  }
+  @include screen(desktop) {
+    flex-direction: row;
+  }
+  @include screen(desktopWide) {
+    flex-direction: row;
+  }
 }
 
 .iconWrapper {
@@ -12,7 +30,6 @@
   padding: $space-sm;
   height: fit-content;
   border-radius: 3px;
-  // background-color: $dark-alpha-10;
   transition: all 0.36s;
   color: $dark-alpha-60;
 }

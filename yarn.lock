@@ -1652,6 +1652,11 @@ array-map@~0.0.0:
   resolved "https://registry.yarnpkg.com/array-map/-/array-map-0.0.0.tgz#88a2bab73d1cf7bcd5c1b118a003f66f665fa662"
   integrity sha1-iKK6tz0c97zVwbEYoAP2b2ZfpmI=
 
+array-move@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/array-move/-/array-move-2.1.0.tgz#b4e9fc8d6a580bc97dcad408e0539c61b4b7ed7e"
+  integrity sha512-BXEIud+F7/ech2HcSfo+6bpgSCRlNnVTqQhGKdMov9iJkHq+vu9IP9qRXDpZvQpc1WWpDLiEfjs6Lfvvac+fDA==
+
 array-reduce@~0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/array-reduce/-/array-reduce-0.0.0.tgz#173899d3ffd1c7d9383e4479525dbe278cab5f2b"
@@ -4181,6 +4186,11 @@ framer-motion@^1.6.7:
     tslib "^1.10.0"
   optionalDependencies:
     "@emotion/is-prop-valid" "^0.8.2"
+
+framer@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/framer/-/framer-1.1.2.tgz#79eca1a4553d3018d07e3e1105812e2a4eb47c51"
+  integrity sha512-e3jeSujt6a8/ApGR5fVz+l4wQBx/l0euCofoxTFNsCShPND1VPSeRrXCwdOgmVIkK85cz8eCjcsbub3B5r2aIg==
 
 framesync@^4.0.0, framesync@^4.0.1, framesync@^4.0.4:
   version "4.0.4"

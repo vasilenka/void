@@ -2,6 +2,10 @@ import styles from './Todo.module.scss'
 import React, { useEffect, useContext, useState, useRef } from 'react'
 import cx from 'classnames'
 
+import { useMotionValue } from 'framer-motion'
+import { findIndex } from '../../utils/find-index'
+import move from 'array-move'
+
 import { AppContext } from '../../layouts/AppProvider/AppProvider'
 
 import { ReactComponent as DeleteIcon } from './../../assets/svg/delete.inline.svg'
@@ -70,11 +74,32 @@ const Running = props => {
   )
 }
 
-const Todo = ({ todo, project, className, ...restProps }) => {
+const Todo = ({
+  todo,
+  project,
+  className,
+  setPosition,
+  i,
+  moveItem,
+  ...restProps
+}) => {
   const { dispatch, running, setRunning } = useContext(AppContext)
   let [hover, setHover] = useState(false)
   let [edit, setEdit] = useState(false)
   let [time, setTime] = useState({})
+
+  const [isDragging, setDragging] = useState(false)
+  const ref = useRef(null)
+  const dragOriginY = useMotionValue(0)
+
+  useEffect(() => {
+    if (ref.current) {
+      setPosition(i, {
+        height: ref.current.offsetHeight,
+        top: ref.current.offsetTop,
+      })
+    }
+  })
 
   useEffect(() => {
     let { hours, minutes, seconds } = calculateFromMiliSeconds(
@@ -96,13 +121,38 @@ const Todo = ({ todo, project, className, ...restProps }) => {
 
   return (
     <Card
+      ref={ref}
+      initial={false}
+      animate={isDragging ? onTop : flat}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 1.12 }}
+      drag="y"
+      dragOriginY={dragOriginY}
+      dragConstraints={{ top: 0, bottom: 0 }}
+      dragElastic={1}
+      onDragStart={() => setDragging(true)}
+      onDragEnd={() => setDragging(false)}
+      onDrag={(e, { point }) => moveItem(i, point.y)}
+      positionTransition={({ delta }) => {
+        if (isDragging) {
+          // If we're dragging, we want to "undo" the items movement within the list
+          // by manipulating its dragOriginY. This will keep the item under the cursor,
+          // even though it's jumping around the DOM.
+          dragOriginY.set(dragOriginY.get() + delta.y)
+        }
+
+        // If `positionTransition` is a function and returns `false`, it's telling
+        // Motion not to animate from its old position into its new one. If we're
+        // dragging, we don't want any animation to occur.
+        return !isDragging
+      }}
       inset="medium"
       className={cx(styles.root, className)}
       alignCenter
       justifyBetween
       onMouseOver={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      style={{ paddingLeft: 16, paddingRight: 56 }}
+      style={{ paddingLeft: 16, paddingRight: 56, cursor: 'pointer' }}
       {...restProps}>
       <Box as="header" alignCenter style={{ flex: 1 }}>
         {edit ? (
@@ -144,6 +194,13 @@ const Todo = ({ todo, project, className, ...restProps }) => {
       {!running && <Running play={() => runTodo(todo.id)} />}
     </Card>
   )
+}
+
+// Spring configs
+const onTop = { zIndex: 1 }
+const flat = {
+  zIndex: 0,
+  transition: { delay: 0.3 },
 }
 
 export default Todo

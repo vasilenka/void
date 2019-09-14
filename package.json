@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@popmotion/popcorn": "^0.4.2",
     "@use-it/event-listener": "^0.1.3",
+    "array-move": "^2.1.0",
     "classnames": "^2.2.6",
     "dayjs": "^1.8.16",
+    "framer": "^1.1.2",
     "framer-motion": "^1.6.7",
     "localforage": "^1.7.3",
     "localforage-observable": "^2.0.0",
