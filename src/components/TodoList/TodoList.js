@@ -10,6 +10,8 @@ import NewTodo from '../NewTodo/NewTodo'
 import move from 'array-move'
 import { findIndex } from '../../utils/find-index'
 
+import { ReactComponent as Thumb } from './../../assets/svg/thumb.svg'
+
 const TodoList = ({ children, className, ...restProps }) => {
   const { state, dispatch } = React.useContext(AppContext)
   const positions = useRef([]).current
